@@ -9,7 +9,7 @@ To develop a neural network regression model for the given dataset.
 The objective of this project is to develop a Neural Network Regression Model that can accurately predict a target variable based on input features. The model will leverage deep learning techniques to learn intricate patterns from the dataset and provide reliable predictions.
 ## Neural Network Model
 
-<img width="1134" height="647" alt="neural" src="https://github.com/user-attachments/assets/24caa536-bafe-4367-8f9b-c6e0abc66d43" />
+<img width="1147" height="793" alt="image" src="https://github.com/user-attachments/assets/6030875e-5671-4ba9-a925-9f1b596b20d1" />
 
 
 ## DESIGN STEPS
@@ -46,40 +46,39 @@ Evaluate the model with the testing data.
 ### Name: YASEEN F
 ### Register Number: 212223220126
 ```python
-class NeuralNet(nn.Module):
-  def __init__(self):
+class Neuralnet(nn.Module):
+   def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(1,8)
-        self.fc2 = nn.Linear(8,10)
-        self.fc3 = nn.Linear(10,1)
-        self.relu = nn.ReLU()
+        self.n1=nn.Linear(1,10)
+        self.n2=nn.Linear(10,20)
+        self.n3=nn.Linear(20,1)
+        self.relu=nn.ReLU()
         self.history={'loss': []}
-  def forward(self,x):
-    x=self.relu(self.fc1(x)) 
-    x=self.relu(self.fc2(x))
-    x=self.fc3(x)  
-    return x
+   def forward(self,x):
+        x=self.relu(self.n1(x))
+        x=self.relu(self.n2(x))
+        x=self.n3(x)
+        return x
 
 
 # Initialize the Model, Loss Function, and Optimizer
+sai_brain=Neuralnet()
+criteria=nn.MSELoss()
+optimizer=optim.RMSprop(sai_brain.parameters(),lr=0.001)
 
-ai_brain = NeuralNet()
-criterion = nn.MSELoss()
-optimizer = optim.RMSprop(ai_brain.parameters(),lr=0.001)
-
-
-def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
-    for epoch in range(epochs):
+def train_model(sai_brain,x_train,y_train,criteria,optmizer,epochs=4000):
+    for i in range(epochs):
         optimizer.zero_grad()
-        loss = criterion(ai_brain(X_train), y_train)
+        loss=criteria(sai_brain(x_train),y_train)
         loss.backward()
         optimizer.step()
+        
+        sai_brain.history['loss'].append(loss.item())
+        if i%200==0:
+            print(f"Epoch [{i}/epochs], loss: {loss.item():.6f}")
 
-        # Append loss inside the loop
-        ai_brain.history['loss'].append(loss.item())
 
-        if epoch % 200 == 0:
-            print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
+
     
 
 
@@ -87,18 +86,20 @@ def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
 ```
 ## Dataset Information
 
-<img width="206" height="526" alt="image 1" src="https://github.com/user-attachments/assets/58e1b85d-5d7f-4b39-a140-ea1f46379d04" />
+<img width="430" height="760" alt="image" src="https://github.com/user-attachments/assets/70efad0c-19ae-42e9-bb08-1c888ac1e863" />
 
 
 ## OUTPUT
+<img width="514" height="520" alt="image" src="https://github.com/user-attachments/assets/3a6d0d6f-48e1-4ef6-8b6d-e7b3ac704d85" />
+
 
 ### Training Loss Vs Iteration Plot
-<img width="736" height="564" alt="training" src="https://github.com/user-attachments/assets/8bb8e45b-3c67-4ddc-86c2-51b0e5e3fcb9" />
+<img width="791" height="651" alt="image" src="https://github.com/user-attachments/assets/9a9c2862-7942-4d22-b2fb-d15eadec7b71" />
 
 
 
 ### New Sample Data Prediction
-<img width="1007" height="146" alt="result 1" src="https://github.com/user-attachments/assets/a8a55f09-38df-4ad1-b732-93ace9fcceb4" />
+<img width="320" height="103" alt="image" src="https://github.com/user-attachments/assets/004c2dee-be31-4dc9-8c70-42180a1959d2" />
 
 
 ## RESULT
